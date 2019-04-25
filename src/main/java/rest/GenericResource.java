@@ -54,14 +54,19 @@ public class GenericResource {
         }
     }
 
-//    @GET
-//    @Produces(MediaType.APPLICATION_JSON)
-//    @Path("getAll")
-//    @RolesAllowed("user")
-//    public String getFromUser() {
-//
-//        List<String> res = parallel.ParallelPinger.getStatusFromAllServers();
-//        String result = ("{\"Star wars stuff\":\"" + gson.toJson(res) + "\"}");
-//        return result;
-//    }
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("getFive")
+    @RolesAllowed("user")
+    public Response getFive() {
+        try {
+            SWFetcher fetcher = new SWFetcher();
+            List<String> res = fetcher.getSeveralSwappiData();
+            String result = (gson.toJson(res));
+            return Response.ok().entity(result).build();
+        } catch (Exception ex) {
+            Logger.getLogger(GenericResource.class.getName()).log(Level.SEVERE, null, ex);
+            return Response.serverError().build();
+        }
+    }
 }
