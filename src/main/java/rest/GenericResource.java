@@ -42,15 +42,15 @@ public class GenericResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("get/{id}")
     @RolesAllowed("user")
-    public Response getOne(@PathParam("id") int id) {
+    public String getOne(@PathParam("id") int id) {
             SWFetcher fetcher = new SWFetcher();
         try {
             String res = fetcher.getSwappiData(id);
-            String result = (gson.toJson(res));
-            return Response.ok().entity(result).build();
+            //String result = (gson.toJson(res));
+            return res;
         } catch (IOException ex) {
             Logger.getLogger(GenericResource.class.getName()).log(Level.SEVERE, null, ex);
-            return Response.serverError().build();
+            return "";
         }
     }
 
@@ -58,15 +58,16 @@ public class GenericResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("getFive")
     @RolesAllowed("user")
-    public Response getFive() {
+    public String getFive() {
         try {
             SWFetcher fetcher = new SWFetcher();
             List<String> res = fetcher.getSeveralSwappiData();
             String result = (gson.toJson(res));
-            return Response.ok().entity(result).build();
+            return result;
+            
         } catch (Exception ex) {
             Logger.getLogger(GenericResource.class.getName()).log(Level.SEVERE, null, ex);
-            return Response.serverError().build();
+            return "";
         }
     }
 }

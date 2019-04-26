@@ -1,5 +1,6 @@
 package utils;
 
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -56,11 +57,14 @@ public class SWFetcher {
         con.setRequestMethod("GET");
         con.setRequestProperty("Accept", "application/json;charset=UTF-8");
         con.setRequestProperty("User-Agent", "server");
+        Gson gson = new Gson();
         Scanner scan = new Scanner(con.getInputStream());
+        //StringBuilder sb = new StringBuilder();
         String jsonStr = null;
         if (scan.hasNext()) {
             jsonStr = scan.nextLine();
         }
+        System.out.println(jsonStr);
         scan.close();
         return jsonStr;
     }
